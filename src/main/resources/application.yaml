@@ -10,7 +10,8 @@ spring:
     show-sql: true
   liquibase:
     change-log: db/changelog/db.changelog-master.xml
+    clear-checksums: on
 logging:
   level:
-    sql : debug
+    sql: debug
     web: debug

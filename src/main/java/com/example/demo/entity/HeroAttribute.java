@@ -20,12 +20,12 @@ public class HeroAttribute {
     @ManyToOne
     @MapsId("heroId")
     @JoinColumn(name = "hero_id")
-    private Superhero hero;
+    private Superhero heroId;
 
     @ManyToOne
     @MapsId("attributeId")
     @JoinColumn(name = "attribute_id")
-    private Attribute attribute;
+    private Attribute attributeId;
 
     @Column(name = "attribute_value")
     private Integer attributeValue;

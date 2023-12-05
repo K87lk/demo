@@ -5,14 +5,21 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-<<<<<<< HEAD
-    <preConditions>
-        <tableExists tableName="superhero" schemaName="superhero"/>
-        <tableExists tableName="alignment" schemaName="superhero"/>
-        <tableExists tableName="attribute" schemaName="superhero"/>
-    </preConditions>
-=======
->>>>>>> 5482791 (123123)
+    <changeSet id="1-0" author="user">
+        <sql dbms="postgresql" endDelimiter=";">
+            DROP TABLE IF EXISTS superhero.alignment CASCADE;
+            DROP TABLE IF EXISTS superhero.attribute CASCADE;
+            DROP TABLE IF EXISTS superhero.colour CASCADE;
+            DROP TABLE IF EXISTS superhero.gender CASCADE;
+            DROP TABLE IF EXISTS superhero.hero_attribute CASCADE;
+            DROP TABLE IF EXISTS superhero.hero_power CASCADE;
+            DROP TABLE IF EXISTS superhero.publisher CASCADE;
+            DROP TABLE IF EXISTS superhero.race CASCADE;
+            DROP TABLE IF EXISTS superhero.superhero CASCADE;
+            DROP TABLE IF EXISTS superhero.superpower CASCADE;
+
+        </sql>
+    </changeSet>
 
     <changeSet id="1-1" author="user">
         <createTable tableName="alignment" schemaName="superhero">
@@ -83,6 +90,7 @@
                 <constraints nullable="false" primaryKey="true" primaryKeyName="pk_superhero"/>
             </column>
             <column name="superhero_name" type="VARCHAR(255)"/>
+            <column name="full_name" type="VARCHAR(255)"/>
             <column name="gender_id" type="INT"/>
             <column name="eye_colour_id" type="INT"/>
             <column name="hair_colour_id" type="INT"/>
@@ -93,27 +101,55 @@
             <column name="height_cm" type="INT"/>
             <column name="weight_kg" type="INT"/>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="alignment_id" baseTableName="superhero"
-                                 baseTableSchemaName="superhero" constraintName="FK_SUPERHERO_ON_ALIGNMENT"
-                                 referencedColumnNames="id" referencedTableName="alignment"/>
-        <addForeignKeyConstraint baseColumnNames="eye_colour_id" baseTableName="superhero"
-                                 baseTableSchemaName="superhero" constraintName="FK_SUPERHERO_ON_EYE_COLOUR"
-                                 referencedColumnNames="id" referencedTableName="colour"/>
-        <addForeignKeyConstraint baseColumnNames="gender_id" baseTableName="superhero" baseTableSchemaName="superhero"
-                                 constraintName="FK_SUPERHERO_ON_GENDER" referencedColumnNames="id"
-                                 referencedTableName="gender"/>
-        <addForeignKeyConstraint baseColumnNames="hair_colour_id" baseTableName="superhero"
-                                 baseTableSchemaName="superhero" constraintName="FK_SUPERHERO_ON_HAIR_COLOUR"
-                                 referencedColumnNames="id" referencedTableName="colour"/>
-        <addForeignKeyConstraint baseColumnNames="publisher_id" baseTableName="superhero"
-                                 baseTableSchemaName="superhero" constraintName="FK_SUPERHERO_ON_PUBLISHER"
-                                 referencedColumnNames="id" referencedTableName="publisher"/>
-        <addForeignKeyConstraint baseColumnNames="race_id" baseTableName="superhero" baseTableSchemaName="superhero"
-                                 constraintName="FK_SUPERHERO_ON_RACE" referencedColumnNames="id"
-                                 referencedTableName="race"/>
-        <addForeignKeyConstraint baseColumnNames="skin_colour_id" baseTableName="superhero"
-                                 baseTableSchemaName="superhero" constraintName="FK_SUPERHERO_ON_SKIN_COLOUR"
-                                 referencedColumnNames="id" referencedTableName="colour"/>
+        <addForeignKeyConstraint baseColumnNames="alignment_id"
+                                 baseTableName="superhero"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_SUPERHERO_ON_ALIGNMENT"
+                                 referencedColumnNames="id"
+                                 referencedTableName="alignment"
+                                 referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="eye_colour_id"
+                                 baseTableName="superhero"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_SUPERHERO_ON_EYE_COLOUR"
+                                 referencedColumnNames="id"
+                                 referencedTableName="colour"
+                                 referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="gender_id"
+                                 baseTableName="superhero"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_SUPERHERO_ON_GENDER"
+                                 referencedColumnNames="id"
+                                 referencedTableName="gender"
+                                 referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="hair_colour_id"
+                                 baseTableName="superhero"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_SUPERHERO_ON_HAIR_COLOUR"
+                                 referencedColumnNames="id"
+                                 referencedTableName="colour"
+                                 referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="publisher_id"
+                                 baseTableName="superhero"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_SUPERHERO_ON_PUBLISHER"
+                                 referencedColumnNames="id"
+                                 referencedTableName="publisher"
+                                 referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="race_id"
+                                 baseTableName="superhero"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_SUPERHERO_ON_RACE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="race"
+                                 referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="skin_colour_id"
+                                 baseTableName="superhero"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_SUPERHERO_ON_SKIN_COLOUR"
+                                 referencedColumnNames="id"
+                                 referencedTableName="colour"
+                                 referencedTableSchemaName="superhero"/>
     </changeSet>
 
     <changeSet id="1-9" author="user">
@@ -125,30 +161,48 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="hero_id" baseTableName="hero_power" baseTableSchemaName="superhero"
-                                 constraintName="fk_hero_on_superhero" referencedColumnNames="id"
-                                 referencedTableName="superhero" referencedTableSchemaName="superhero"/>
-        <addForeignKeyConstraint baseColumnNames="power_id" baseTableName="hero_power" baseTableSchemaName="superhero"
-                                 constraintName="fk_hero_on_superpower" referencedColumnNames="id"
-                                 referencedTableName="superpower"/>
+        <addForeignKeyConstraint baseColumnNames="hero_id"
+                                 baseTableName="hero_power"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="fk_hero_on_superhero"
+                                 referencedColumnNames="id"
+                                 referencedTableName="superhero"
+                                 referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="power_id" baseTableName="hero_power"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="fk_hero_on_superpower"
+                                 referencedColumnNames="id"
+                                 referencedTableName="superpower"
+                                 referencedTableSchemaName="superhero"/>
     </changeSet>
 
     <changeSet id="1-10" author="user">
         <createTable tableName="hero_attribute" schemaName="superhero">
-            <column name="attribute_value" type="INT"/>
-            <column name="hero_id" type="INT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_hero_attribute"/>
+            <column name="hero_id" type="INT" >
+                <constraints nullable="false"
+                />
             </column>
             <column name="attribute_id" type="INT">
-                <constraints nullable="false" primaryKey="true" primaryKeyName="pk_hero_attribute"/>
+                <constraints nullable="false"
+                             />
             </column>
+            <column name="attribute_value" type="INT"/>
         </createTable>
-        <addForeignKeyConstraint baseColumnNames="attribute_id" baseTableName="hero_attribute"
-                                 constraintName="FK_HERO_ATTRIBUTE_ON_ATTRIBUTE" referencedColumnNames="id"
-                                 referencedTableName="attribute"/>
-        <addForeignKeyConstraint baseColumnNames="hero_id" baseTableName="hero_attribute"
-                                 constraintName="FK_HERO_ATTRIBUTE_ON_HERO" referencedColumnNames="id"
-                                 referencedTableName="superhero" referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="attribute_id"
+                                 baseTableName="hero_attribute"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_HERO_ATTRIBUTE_ON_ATTRIBUTE"
+                                 referencedColumnNames="id"
+                                 referencedTableName="attribute"
+                                 referencedTableSchemaName="superhero"/>
+        <addForeignKeyConstraint baseColumnNames="hero_id"
+                                 baseTableName="hero_attribute"
+                                 baseTableSchemaName="superhero"
+                                 constraintName="FK_HERO_ATTRIBUTE_ON_HERO"
+                                 referencedColumnNames="id"
+                                 referencedTableName="superhero"
+                                 referencedTableSchemaName="superhero"
+                                />
     </changeSet>
 
 
