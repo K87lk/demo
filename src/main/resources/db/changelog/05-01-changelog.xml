@@ -5,15 +5,6 @@
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
                       http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.20.xsd">
 
-<<<<<<< HEAD
-    <preConditions>
-        <tableExists tableName="superhero" schemaName="superhero"/>
-        <tableExists tableName="alignment" schemaName="superhero"/>
-        <tableExists tableName="attribute" schemaName="superhero"/>
-    </preConditions>
-=======
->>>>>>> 5482791 (123123)
-
     <changeSet id="1-1" author="user">
         <createTable tableName="alignment" schemaName="superhero">
             <column autoIncrement="true" name="id" type="INT">
